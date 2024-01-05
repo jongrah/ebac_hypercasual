@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 2062992763767559286}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -155,6 +155,6 @@ MonoBehaviour:
   timeToHide: 3
   graphicItem: {fileID: 1339606626142383406}
   audioSource: {fileID: 0}
-  duration: 8
+  duration: 10
   amountToSpeed: 12
   textSpeed: Speed Up

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Ebac.Core.Singleton;
+using TMPro;
+using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -21,7 +24,12 @@ public class PlayerController : Singleton<PlayerController>
     public GameObject endScreen;
     private float _currentSpeed;
     private Vector3 _startPosition;
+
+    [Header("Power Up Settings")]
     public bool invencible = false;
+    public TextMeshPro uiTextPowerUp;
+    public GameObject powerUpText;
+    public GameObject coinCollector;
 
     private void Start()
     {
@@ -73,7 +81,7 @@ public class PlayerController : Singleton<PlayerController>
 
     public void SetPowerUpText(string s)
     {
-        //uiTextPowerUp.text = s;
+        uiTextPowerUp.text = s;
     }
 
     public void PowerUpSpeedUp(float f)
@@ -89,6 +97,30 @@ public class PlayerController : Singleton<PlayerController>
     public void ResetSpeed()
     {
         _currentSpeed = speed;
+    }
+
+    public void ChangeHeight(float amount, float duration, float animationDuration, Ease ease)
+    {
+        /*var p = transform.position;
+        p.y = _startPosition.y + amount;
+        transform.position = p;*/
+
+        transform.DOMoveY(_startPosition.y + amount, animationDuration).SetEase(ease);
+        Invoke(nameof(ResetHeight), duration); 
+    }
+
+    public void ResetHeight()
+    {
+        /*var p = transform.position;
+        p.y = _startPosition.y;
+        transform.position = p;*/
+
+        transform.DOMoveY(_startPosition.y, .5f);
+    }
+
+    public void ChangeCoinCollectorSize(float amount)
+    {
+        coinCollector.transform.localScale = Vector3.one * amount;
     }
 
     #endregion
