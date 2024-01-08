@@ -25,6 +25,10 @@ public class PlayerController : Singleton<PlayerController>
     private float _currentSpeed;
     private Vector3 _startPosition;
 
+    [Header("Animator Settings")]
+    public AnimatorManager animatorManagers;
+    private float _baseSpeedAnimation = 7;
+
     [Header("Power Up Settings")]
     public bool invencible = false;
     public TextMeshPro uiTextPowerUp;
@@ -54,7 +58,11 @@ public class PlayerController : Singleton<PlayerController>
     {
         if (collision.transform.tag == tagToCheckEnemy)
         {
-            if (!invencible) EndGame();
+            if (!invencible)
+            {
+                MoveBack();
+                EndGame(AnimatorManager.AnimationType.DEAD);
+            }
         }
     }
 
@@ -62,19 +70,26 @@ public class PlayerController : Singleton<PlayerController>
     {
         if (other.transform.tag == tagToCheckEndLine)
         {
-            EndGame();
+            EndGame(AnimatorManager.AnimationType.VICTORY);
         }
     }
 
-    private void EndGame()
+    public void MoveBack()
+    {
+        transform.DOMoveZ(-1f, .3f).SetRelative();
+    }
+
+    private void EndGame(AnimatorManager.AnimationType animationType = AnimatorManager.AnimationType.IDLE)
     {
         _canRun = false;
         endScreen.SetActive(true);
+        animatorManagers.Play(animationType);
     }
 
     public void StartToRun()
     {
         _canRun = true;
+        animatorManagers.Play(AnimatorManager.AnimationType.RUN, _currentSpeed / _baseSpeedAnimation);
     }
 
     #region POWER UPs
