@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd91c7b4df96ce54b82fd5835043a038, type: 3}
-  m_Name: Level_001
+  m_Name: Level_003
   m_EditorClassIdentifier: 
-  artType: 0
+  artType: 2
   levelStartPieces:
   - {fileID: 4449567107544201749, guid: e1e6105dbde87fd4fb9efaf059b5444d, type: 3}
   levelPieces:
@@ -27,5 +27,5 @@ MonoBehaviour:
   levelEndPieces:
   - {fileID: 4449567107544201749, guid: 5d6b5049b3755b749a1e2e4e54e24cd7, type: 3}
   piecesStartNumber: 3
-  piecesNumber: 5
+  piecesNumber: 12
   piecesEndNumber: 1

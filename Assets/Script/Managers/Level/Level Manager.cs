@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            SpawnNextLevel();
+            GenerateLevelPieces();
         }
     }
 
