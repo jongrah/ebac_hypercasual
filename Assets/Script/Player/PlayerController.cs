@@ -35,10 +35,18 @@ public class PlayerController : Singleton<PlayerController>
     public GameObject powerUpText;
     public GameObject coinCollector;
 
+    [Header("Animation Settings")]
+    public AnimatorManager animatorManager;
+    [SerializeField] private BounceHelper _bounceHelperStart;
+    [SerializeField] private DeathBounce _deathBounce;
+    [SerializeField] private VictoryBounce _victoryBounce;
+    [SerializeField] private PowerUpAnimation _powerUpBounce;
+
     private void Start()
     {
         _startPosition = transform.position;
         ResetSpeed();
+        BouncePlayer();
     }
 
     void Update()
@@ -62,15 +70,38 @@ public class PlayerController : Singleton<PlayerController>
             {
                 MoveBack();
                 EndGame(AnimatorManager.AnimationType.DEAD);
+                BounceDeath();
             }
         }
     }
+
+    #region BOUNCES
+    public void BouncePlayer()
+    {
+        if(_bounceHelperStart != null) _bounceHelperStart.Bounce();
+    }
+
+    public void BouncePowerUp()
+    {
+        if (_powerUpBounce != null) _powerUpBounce.PowerUpBounce();
+    }
+    public void BounceDeath()
+    {
+        if (_deathBounce != null) _deathBounce.DyingBounce();
+    }
+    public void BounceVictory()
+    {
+        if (_victoryBounce != null) _victoryBounce.WinnerBounce();
+    }
+
+    #endregion
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == tagToCheckEndLine)
         {
             EndGame(AnimatorManager.AnimationType.VICTORY);
+            BounceVictory();
         }
     }
 

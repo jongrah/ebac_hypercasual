@@ -13,7 +13,6 @@ public class PowerUpSpeed : PowerUpBase
         base.StartPowerUp();
         PlayerController.Instance.PowerUpSpeedUp(amountToSpeed);
         PlayerController.Instance.SetPowerUpText(textSpeed);
-
     }
 
     protected override void EndPowerUp()

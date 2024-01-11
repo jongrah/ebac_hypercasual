@@ -11,7 +11,7 @@ public class ItemCollactableCoin : ItemCollactableBase
 
     private void Start()
     {
-        //CoinAnimationManager.Instance.RegisterCoint(this);
+        CoinsAnimationManager.Instance.RegisterCoin(this);
     }
 
 
@@ -21,7 +21,7 @@ public class ItemCollactableCoin : ItemCollactableBase
         ItemManager.Instance.AddCoins();
         coinCollider.enabled = false;
         collect = true;
-        //PlayerController.Instance.Bounce();
+        PlayerController.Instance.BouncePlayer();
     }
 
     protected override void Collect()

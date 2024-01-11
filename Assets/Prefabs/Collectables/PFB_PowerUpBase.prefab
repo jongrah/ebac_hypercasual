@@ -73,6 +73,7 @@ MonoBehaviour:
   graphicItem: {fileID: 7605577237244515786}
   audioSource: {fileID: 0}
   duration: 3
+  _bounceHelperPowerUp: {fileID: 0}
 --- !u!1 &7605577237244515786
 GameObject:
   m_ObjectHideFlags: 0
