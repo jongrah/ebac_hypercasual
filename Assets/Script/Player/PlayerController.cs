@@ -16,6 +16,8 @@ public class PlayerController : Singleton<PlayerController>
 
     [Header("Player Settings")]
     public float speed = 1f;
+    public float limits = 4f;
+    public Vector2 limitVector = new Vector2(-4.5f, 5);
 
     [Header("Other Settings")]
     public string tagToCheckEnemy = "Enemy";
@@ -42,6 +44,11 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private VictoryBounce _victoryBounce;
     [SerializeField] private PowerUpAnimation _powerUpBounce;
 
+    [Header("VFX Settings")]
+    public ParticleSystem vfxDeath;
+    public ParticleSystem vfxVictory;
+
+
     private void Start()
     {
         _startPosition = transform.position;
@@ -57,6 +64,11 @@ public class PlayerController : Singleton<PlayerController>
         _pos.y = transform.position.y;
         _pos.z = transform.position.z;
 
+        /*if(_pos.x < -limits) _pos.x = -limits;
+        else if(_pos.x > limits) _pos.x = limits;*/
+
+        if(_pos.x < limitVector.x) _pos.x = limitVector.x;
+        else if(_pos.x > limitVector.y) _pos.x = limitVector.y;
 
         transform.position = Vector3.Lerp(transform.position, _pos, lerpSpeed * Time.deltaTime);
         transform.Translate(transform.forward * _currentSpeed * Time.deltaTime);
@@ -69,7 +81,8 @@ public class PlayerController : Singleton<PlayerController>
             if (!invencible)
             {
                 MoveBack();
-                EndGame(AnimatorManager.AnimationType.DEAD);
+                EndGame(AnimatorManager.AnimationType.DEAD); 
+                if (vfxDeath != null) vfxDeath.Play();
                 BounceDeath();
             }
         }
@@ -101,6 +114,7 @@ public class PlayerController : Singleton<PlayerController>
         if (other.transform.tag == tagToCheckEndLine)
         {
             EndGame(AnimatorManager.AnimationType.VICTORY);
+            if (vfxVictory != null) vfxVictory.Play();
             BounceVictory();
         }
     }

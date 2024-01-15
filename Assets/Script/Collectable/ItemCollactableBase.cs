@@ -15,11 +15,6 @@ public class ItemCollactableBase : MonoBehaviour
 
     private void Awake()
     {
-        if (particleCoin != null)
-        {
-            particleCoin.transform.parent = null;
-        }
-
         if (audioSource != null)
         {
             audioSource.transform.parent = null;
@@ -45,11 +40,17 @@ public class ItemCollactableBase : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void DelayParticleCoin()
+    {
+        particleCoin.transform.parent = null;
+        particleCoin.Play();
+    }
+
     protected virtual void OnCollect()
     {
         if (particleCoin != null)
         {
-            particleCoin.Play();
+            DelayParticleCoin();
         }
 
         if (audioSource != null)
