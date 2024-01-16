@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using DG.Tweening;
+
+public class ButtonScaled : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    public float finalScale = 1.2f;
+    public float scaleDuration = .1f;
+
+    private Vector3 _defaulScale;
+    private Tween _currentTween;
+
+    private void Awake()
+    {
+        _defaulScale = transform.localScale;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Enter");
+        //transform.localScale = Vector3.one * 1.2f;
+        transform.DOScale(_defaulScale * finalScale, scaleDuration);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Exit");
+        _currentTween.Kill();
+        transform.localScale = _defaulScale;
+    }
+}
